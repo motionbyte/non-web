@@ -121,7 +121,7 @@ export async function fetchRecords(query?: { field?: string; q?: string }) {
   if (query?.q) params.set("q", query.q);
   const suffix = params.toString() ? `?${params}` : "";
   try {
-    const res = await fetch(`${API}/v1/records${suffix}`, { cache: "no-store" });
+    const res = await fetch(`${API}/v1/records${suffix}`, { next: { revalidate: 60 }, signal: AbortSignal.timeout(5000) });
     if (!res.ok) return { records: [] as RecordItem[], featured: [] as RecordItem[] };
     return (await res.json()) as { records: RecordItem[]; featured: RecordItem[] };
   } catch {
@@ -136,7 +136,7 @@ export async function fetchDirectory(query?: { field?: string; q?: string }) {
 
 export async function fetchRecord(slug: string) {
   try {
-    const res = await fetch(`${API}/v1/records/${slug}`, { cache: "no-store" });
+    const res = await fetch(`${API}/v1/records/${slug}`, { next: { revalidate: 60 }, signal: AbortSignal.timeout(5000) });
     if (res.ok) {
       const data = (await res.json()) as { record: RecordItem };
       return { ...data.record, lane: data.record.lane || "filed" };

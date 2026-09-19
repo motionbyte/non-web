@@ -1,28 +1,27 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import Link from "next/link";
 import { fetchRecord, fieldLabel, laneLabel } from "@/lib/api";
 import { articleLead, articleSections, infoboxRows } from "@/lib/article";
 import { Portrait } from "@/components/Portrait";
-import { FlagButton, TalkThread } from "@/components/TalkThread";
-import { WatchButton } from "@/components/WatchButton";
-import { apiGet, getMe } from "@/lib/session";
+import { PersonTalk, PersonTools } from "@/components/PersonTools";
+import { indexableRecord, personDescription, personJsonLd, SITE_URL } from "@/lib/seo";
+import { notFound } from "next/navigation";
 
-export const dynamic = "force-dynamic";
-
-const site = process.env.NEXT_PUBLIC_SITE_URL || "https://namesofnote.com";
+export const revalidate = 60;
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const record = await fetchRecord(slug);
   if (!record) return { title: "Not on this desk", robots: { index: false, follow: false } };
-  const description = record.dek || record.headline;
-  const url = `${site}/people/${record.slug}`;
+  const description = personDescription(record);
+  const url = `${SITE_URL}/people/${record.slug}`;
   const image = record.photo && !record.photo.startsWith("data:") ? record.photo : undefined;
+  const index = indexableRecord(record);
   return {
     title: record.name,
     description,
     alternates: { canonical: url },
+    robots: index ? { index: true, follow: true } : { index: false, follow: true },
     openGraph: {
       type: "profile",
       title: `${record.name} — Names of Note`,
@@ -42,28 +41,13 @@ export default async function DetailPage({ params }: { params: Promise<{ slug: s
   const { slug } = await params;
   const record = await fetchRecord(slug);
   if (!record) notFound();
-  const me = await getMe();
-  const talk = (await apiGet<{ talk: { id: string; userName: string; role?: string; body: string; createdAt: string }[] }>(`/v1/talk/${slug}`))?.talk || [];
-  const watchlist = me ? (await apiGet<{ watchlist: { slug: string }[] }>("/v1/watchlist"))?.watchlist || [] : [];
-  const watching = watchlist.some((item) => item.slug === record.slug);
 
   const photo = record.photo || record.photoDataUrl;
   const lead = articleLead(record);
   const sections = articleSections(record);
   const facts = infoboxRows(record);
   const locked = Boolean(record.protected);
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    name: record.name,
-    description: record.dek,
-    jobTitle: record.headline || undefined,
-    image: photo && !String(photo).startsWith("data:") ? (photo.startsWith("http") ? photo : `${site}${photo}`) : undefined,
-    url: `${site}/people/${record.slug}`,
-    ...(record.city || record.country
-      ? { homeLocation: { "@type": "Place", name: [record.city, record.country].filter(Boolean).join(", ") } }
-      : {}),
-  };
+  const jsonLd = personJsonLd(record);
   const toc = [
     { id: "top", title: lead ? "The name" : "Top" },
     ...sections.map((section) => ({ id: section.id, title: section.title })),
@@ -84,35 +68,7 @@ export default async function DetailPage({ params }: { params: Promise<{ slug: s
         {record.name}
       </h1>
       <p className="mt-4 max-w-2xl font-display text-xl italic leading-snug text-black/60 sm:text-2xl">{record.dek}</p>
-      <p className="mt-6 max-w-2xl text-sm leading-6 text-black/55">
-        <Link href={`/people/${record.slug}/history`} className="underline underline-offset-4">
-          History
-        </Link>
-        {me && !locked ? (
-          <>
-            {" · "}
-            <Link href={`/people/${record.slug}/edit`} className="underline underline-offset-4">
-              Edit
-            </Link>
-          </>
-        ) : null}
-        {me ? (
-          <>
-            {" · "}
-            <WatchButton slug={record.slug} watching={watching} />
-          </>
-        ) : null}
-        {" · "}
-        <FlagButton slug={record.slug} signedIn={Boolean(me)} />
-        {record.lane === "filed" ? (
-          <>
-            {" · "}
-            <Link href="/boost" className="underline underline-offset-4">
-              Boost
-            </Link>
-          </>
-        ) : null}
-      </p>
+      <PersonTools slug={record.slug} filed={record.lane === "filed"} />
 
       <div className="mt-10 grid items-start gap-10 lg:grid-cols-[11rem_minmax(0,1fr)_16rem] lg:gap-10">
         <Contents items={toc} />
@@ -151,7 +107,7 @@ export default async function DetailPage({ params }: { params: Promise<{ slug: s
               </ol>
             </section>
           ) : null}
-          <TalkThread slug={record.slug} signedIn={Boolean(me)} posts={talk} />
+          <PersonTalk slug={record.slug} />
         </div>
 
         <Infobox name={record.name} photo={photo} facts={facts} className="hidden lg:block" sticky />

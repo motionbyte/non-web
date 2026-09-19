@@ -8,9 +8,10 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/desk", "/moderation", "/sign-in", "/sign-up", "/settings", "/watchlist", "/boost"],
+        disallow: ["/desk", "/moderation", "/sign-in", "/sign-up", "/settings", "/watchlist", "/boost", "/search"],
       },
     ],
     sitemap: `${site}/sitemap.xml`,
+    host: site.replace(/^https?:\/\//, ""),
   };
 }

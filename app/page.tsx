@@ -1,15 +1,22 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { NamesField } from "@/components/NamesField";
 import { fetchDirectory } from "@/lib/api";
 import { categories, encyclopedia } from "@/lib/editorial";
+import { SITE_DESCRIPTION } from "@/lib/seo";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
+
+export const metadata: Metadata = {
+  title: { absolute: "Names of Note" },
+  description: SITE_DESCRIPTION,
+};
 
 const desks = [
   { href: "/directory", kicker: "01", name: "Directory", dek: "Every name on the desk, searchable." },
   { href: "/categories", kicker: "02", name: "Fields", dek: "Nine lists. Organic order." },
   { href: "/stories", kicker: "03", name: "Stories", dek: "Longer entries, still on the record." },
-  { href: "/join", kicker: "04", name: "File", dek: "Add a name. Free. Ranking not for sale." },
+  { href: "/join", kicker: "04", name: "File", dek: "Open a public page. Free. Not a Wikipedia article for sale." },
 ];
 
 export default async function HomePage() {
@@ -32,7 +39,7 @@ export default async function HomePage() {
             The free encyclopedia of people.
           </p>
           <p className="mx-auto mt-2 max-w-md px-1 text-center text-sm leading-6 text-black/48">
-            How large is the desk? Nobody has finished counting. Famous names, filed names, and the ones that arrive tomorrow.
+            File a public page. Wikipedia has notability rules — this desk does not sell a Wikipedia article. Ranking is organic.
           </p>
 
           <div className="mx-auto mt-5 w-full max-w-2xl border border-black/25 bg-[#f6f3ec]/92 sm:mt-6">
@@ -56,7 +63,7 @@ export default async function HomePage() {
               <ul className="mt-3 flex flex-wrap justify-center gap-x-5 gap-y-2.5">
                 {categories.map((item) => (
                   <li key={item.slug}>
-                    <Link href={`/directory?field=${item.slug}`} className="group inline-flex items-baseline gap-1.5">
+                    <Link href={`/categories/${item.slug}`} className="group inline-flex items-baseline gap-1.5">
                       <span className="kicker text-[10px] text-black/28">{item.n}</span>
                       <span className="font-display text-[1.12rem] leading-none italic tracking-[-0.03em] text-black/72 underline-offset-4 group-hover:text-black group-hover:underline">
                         {item.name}

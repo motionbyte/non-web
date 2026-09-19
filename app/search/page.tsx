@@ -8,6 +8,7 @@ const API = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || "http://12
 
 export const metadata: Metadata = {
   title: "Search",
+  robots: { index: false, follow: true },
 };
 
 type Result = { type: string; slug?: string; username?: string; title: string; description?: string; category?: string; updatedAt?: string };
@@ -35,7 +36,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   function href(item: Result) {
     if (item.type === "person" && item.slug) return `/people/${item.slug}`;
     if (item.type === "user" && item.username) return `/user/${item.username}`;
-    if (item.type === "category" && item.slug) return `/directory?field=${item.slug}`;
+    if (item.type === "category" && item.slug) return `/categories/${item.slug}`;
     return "/directory";
   }
 

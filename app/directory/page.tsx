@@ -1,8 +1,31 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { fetchDirectory, fieldLabel, laneLabel, type RecordItem } from "@/lib/api";
 import { categories } from "@/lib/editorial";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ field?: string; q?: string }>;
+}): Promise<Metadata> {
+  const { field, q } = await searchParams;
+  if (q) return { title: "Directory", robots: { index: false, follow: true } };
+  if (field) {
+    const name = fieldLabel(field);
+    return {
+      title: name || "Directory",
+      alternates: { canonical: `/categories/${field}` },
+      robots: { index: false, follow: true },
+    };
+  }
+  return {
+    title: "Directory",
+    description: "Every name on Names of Note. A free encyclopedia of people. Ranking is organic. Sponsored slots are labeled.",
+    alternates: { canonical: "/directory" },
+  };
+}
 
 export default async function DirectoryPage({
   searchParams,
@@ -49,7 +72,7 @@ export default async function DirectoryPage({
       ) : (
         <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
           {categories.map((item) => (
-            <Link key={item.slug} href={`/directory?field=${item.slug}${q ? `&q=${encodeURIComponent(q)}` : ""}`} className="kicker text-black/50 hover:text-black">
+            <Link key={item.slug} href={`/categories/${item.slug}${q ? `?q=${encodeURIComponent(q)}` : ""}`} className="kicker text-black/50 hover:text-black">
               {item.name}
             </Link>
           ))}

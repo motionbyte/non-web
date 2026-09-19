@@ -1,3 +1,11 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description: "Filings, corrections, and a request to check a name: desk@namesofnote.com",
+  alternates: { canonical: "/contact" },
+};
+
 export default function ContactPage() {
   return (
     <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">

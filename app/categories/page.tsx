@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { fetchDirectory } from "@/lib/api";
 import { categories } from "@/lib/editorial";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
+
+export const metadata: Metadata = {
+  title: "Categories",
+  description: "People by field on Names of Note. Organic order. Sponsored names stay labeled.",
+  alternates: { canonical: "/categories" },
+};
 
 export default async function CategoriesPage() {
   const { records, featured } = await fetchDirectory();
@@ -21,7 +28,7 @@ export default async function CategoriesPage() {
               <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2">
                 <span className="kicker text-black/35">{item.n}</span>
                 <h2 className="min-w-0 flex-1 font-display text-3xl sm:text-4xl">{item.name}</h2>
-                <Link href={`/directory?field=${item.slug}`} className="kicker text-black/50">
+                <Link href={`/categories/${item.slug}`} className="kicker text-black/50">
                   View →
                 </Link>
               </div>

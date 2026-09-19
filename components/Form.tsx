@@ -133,7 +133,12 @@ export function Form({
       </div>
       {fields.includes("achievements") ? <label className="block text-sm"><span className="text-[11px] uppercase tracking-[0.12em] opacity-60">Achievements</span><textarea name="achievements" rows={4} className="mt-1 w-full border border-black/20 bg-transparent px-3 py-2" /></label> : null}
       {fields.includes("story") ? <label className="block text-sm"><span className="text-[11px] uppercase tracking-[0.12em] opacity-60">Your story</span><textarea name="story" required rows={4} className="mt-1 w-full border border-black/20 bg-transparent px-3 py-2" /></label> : null}
-      {fields.includes("origin") ? <label className="block text-sm"><span className="text-[11px] uppercase tracking-[0.12em] opacity-60">Where this started</span><textarea name="origin" rows={3} className="mt-1 w-full border border-black/20 bg-transparent px-3 py-2" /></label> : null}
+        {fields.includes("origin") ? (
+          <label className="block text-sm">
+            <span className="text-[11px] uppercase tracking-[0.12em] opacity-60">Who they are</span>
+            <textarea name="origin" required minLength={40} rows={4} placeholder="A short public lead: who this person is, in plain language. Search indexes this." className="mt-1 w-full border border-black/20 bg-transparent px-3 py-2" />
+          </label>
+        ) : null}
       {fields.includes("building") ? <label className="block text-sm"><span className="text-[11px] uppercase tracking-[0.12em] opacity-60">What you are building</span><textarea name="building" rows={3} className="mt-1 w-full border border-black/20 bg-transparent px-3 py-2" /></label> : null}
       {fields.includes("interview") ? <label className="block text-sm"><span className="text-[11px] uppercase tracking-[0.12em] opacity-60">Interview notes</span><textarea name="interview" rows={4} className="mt-1 w-full border border-black/20 bg-transparent px-3 py-2" /></label> : null}
       {fields.includes("unknown") ? <label className="block text-sm"><span className="text-[11px] uppercase tracking-[0.12em] opacity-60">Five things they don&apos;t know</span><textarea name="unknown" rows={3} className="mt-1 w-full border border-black/20 bg-transparent px-3 py-2" /></label> : null}

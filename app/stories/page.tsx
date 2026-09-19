@@ -1,7 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { fetchDirectory } from "@/lib/api";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
+
+export const metadata: Metadata = {
+  title: "Stories",
+  description: "Longer entries on Names of Note, still on the record.",
+  alternates: { canonical: "/stories" },
+};
 
 export default async function StoriesPage() {
   const { records } = await fetchDirectory();

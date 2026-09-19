@@ -14,6 +14,10 @@ export function WatchButton({ slug, watching: initial }: { slug: string; watchin
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ slug }),
       });
+      if (res.status === 401) {
+        window.location.href = `/sign-in?next=/people/${slug}`;
+        return;
+      }
       const data = (await res.json()) as { watching?: boolean; error?: string };
       if (!res.ok) throw new Error(data.error || "Could not watch.");
       setWatching(Boolean(data.watching));
