@@ -120,9 +120,13 @@ export async function fetchRecords(query?: { field?: string; q?: string }) {
   if (query?.field) params.set("field", query.field);
   if (query?.q) params.set("q", query.q);
   const suffix = params.toString() ? `?${params}` : "";
-  const res = await fetch(`${API}/v1/records${suffix}`, { cache: "no-store" });
-  if (!res.ok) return { records: [] as RecordItem[], featured: [] as RecordItem[] };
-  return (await res.json()) as { records: RecordItem[]; featured: RecordItem[] };
+  try {
+    const res = await fetch(`${API}/v1/records${suffix}`, { cache: "no-store" });
+    if (!res.ok) return { records: [] as RecordItem[], featured: [] as RecordItem[] };
+    return (await res.json()) as { records: RecordItem[]; featured: RecordItem[] };
+  } catch {
+    return { records: [] as RecordItem[], featured: [] as RecordItem[] };
+  }
 }
 
 export async function fetchDirectory(query?: { field?: string; q?: string }) {
@@ -131,18 +135,26 @@ export async function fetchDirectory(query?: { field?: string; q?: string }) {
 }
 
 export async function fetchRecord(slug: string) {
-  const res = await fetch(`${API}/v1/records/${slug}`, { cache: "no-store" });
-  if (res.ok) {
-    const data = (await res.json()) as { record: RecordItem };
-    return { ...data.record, lane: data.record.lane || "filed" };
+  try {
+    const res = await fetch(`${API}/v1/records/${slug}`, { cache: "no-store" });
+    if (res.ok) {
+      const data = (await res.json()) as { record: RecordItem };
+      return { ...data.record, lane: data.record.lane || "filed" };
+    }
+  } catch {
+    // API unreachable; fall through to editorial copy.
   }
   const editorial = editorialBySlug(slug);
   return editorial ? editorialToRecord(editorial) : null;
 }
 
 export async function fetchSkus() {
-  const res = await fetch(`${API}/v1/catalog`, { cache: "no-store" });
-  if (!res.ok) return [];
-  const data = (await res.json()) as { skus: Sku[] };
-  return data.skus;
+  try {
+    const res = await fetch(`${API}/v1/catalog`, { cache: "no-store" });
+    if (!res.ok) return [];
+    const data = (await res.json()) as { skus: Sku[] };
+    return data.skus;
+  } catch {
+    return [];
+  }
 }
