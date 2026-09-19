@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-ui);
+  --font-display: var(--font-display);
+  --font-serif: var(--font-body);
+  --color-paper: #f6f3ec;
+  --color-ink: #111110;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+body {
+  font-family: var(--font-body), Georgia, serif;
+}
+
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+.font-ui {
+  font-family: var(--font-ui), Helvetica, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+input,
+textarea,
+button {
+  font: inherit;
+}
+
+.kicker {
+  font-family: var(--font-ui), Helvetica, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.rule {
+  border-color: rgb(17 17 16 / 0.1);
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.font-ghost {
+  font-family: var(--font-ghost), Georgia, serif;
+  font-style: italic;
+}
+
+.names-field {
+  --sx: 50vw;
+  -webkit-mask-image: url("#names-spot-mask");
+  mask-image: url("#names-spot-mask");
+}
+
+.names-row {
+  will-change: transform;
+  transform: translate3d(calc((var(--sx) - 50vw) * var(--slide) * 0.055), 0, 0);
+}
+
+.article-body a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+summary {
+  list-style: none;
+}
