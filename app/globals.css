@@ -21,8 +21,11 @@ body {
     overflow-x: hidden;
   }
 
-  .names-field-root {
+  .names-field-root,
+  .names-field {
     display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
   }
 }
 

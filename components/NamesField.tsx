@@ -6,7 +6,7 @@ const ROWS = 48;
 const READ = "h1,h2,h3,h4,p,a,button,label,input,textarea,span,summary";
 const RAD = 224;
 const PAD = 18;
-const DESKTOP = "(min-width: 768px) and (hover: hover) and (pointer: fine)";
+const DESKTOP = "(min-width: 768px)";
 
 function lineFor(names: string[], row: number) {
   const start = (row * 5) % names.length;
@@ -110,7 +110,7 @@ function NamesFieldCanvas({ names }: { names: string[] }) {
   }, []);
 
   return (
-    <div className="names-field-root" aria-hidden>
+    <div className="names-field-root hidden md:block" aria-hidden>
       <svg className="pointer-events-none absolute h-0 w-0">
         <defs>
           <mask ref={maskRef} id="names-spot-mask" maskUnits="userSpaceOnUse" x="0" y="0">
@@ -120,7 +120,7 @@ function NamesFieldCanvas({ names }: { names: string[] }) {
           </mask>
         </defs>
       </svg>
-      <div ref={fieldRef} className="names-field pointer-events-none fixed inset-0 z-[15] overflow-hidden mix-blend-multiply">
+      <div ref={fieldRef} className="names-field pointer-events-none fixed inset-0 z-[15] hidden overflow-hidden mix-blend-multiply md:block">
         {Array.from({ length: ROWS }, (_, row) => (
           <p
             key={row}
