@@ -25,10 +25,10 @@ export function MobileNav({ signedIn, moderator }: { signedIn: boolean; moderato
           <span className="absolute top-3 left-0 h-px w-5 bg-black" />
         </span>
       </summary>
-      <nav className="fixed inset-x-0 top-0 bottom-[4.75rem] z-50 overflow-y-auto border-b border-black/10 bg-[#f6f3ec] px-6 py-8">
-        <div className="flex flex-col gap-5">
+      <nav className="fixed inset-x-0 top-0 bottom-[calc(4.25rem+env(safe-area-inset-bottom))] z-50 overflow-y-auto border-b border-black/10 bg-[#f6f3ec] px-5 py-7 sm:px-6">
+        <div className="flex flex-col gap-4">
           {links.map((item) => (
-            <Link key={item.href} href={item.href} className="font-display text-4xl">
+            <Link key={item.href} href={item.href} className="font-display text-[2rem] leading-none sm:text-4xl">
               {item.label}
             </Link>
           ))}

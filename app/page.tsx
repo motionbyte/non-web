@@ -21,32 +21,32 @@ export default async function HomePage() {
       <NamesField names={names} />
 
       <section className="relative">
-        <div className="mx-auto flex min-h-[calc(100dvh-4.5rem)] max-w-[90rem] flex-col justify-start px-4 pb-16 pt-6 sm:px-6 sm:pt-8">
-          <h1 className="text-center font-display text-[clamp(5.5rem,20vw,18rem)] leading-[0.8] tracking-[-0.06em]">
+        <div className="mx-auto flex min-h-[calc(100dvh-5.5rem)] max-w-[90rem] flex-col justify-start px-4 pb-12 pt-5 sm:min-h-[calc(100dvh-4.5rem)] sm:px-6 sm:pb-16 sm:pt-8">
+          <h1 className="text-center font-display text-[clamp(3.5rem,16vw,18rem)] leading-[0.82] tracking-[-0.06em] sm:text-[clamp(5.5rem,20vw,18rem)] sm:leading-[0.8]">
             Names
             <br />
             of Note
           </h1>
 
-          <p className="mt-5 text-center font-display text-xl italic text-black/58 sm:text-[1.65rem]">
+          <p className="mt-4 text-center font-display text-[1.15rem] italic text-black/58 sm:mt-5 sm:text-[1.65rem]">
             The free encyclopedia of people.
           </p>
-          <p className="mx-auto mt-2 max-w-md text-center text-sm leading-6 text-black/48">
+          <p className="mx-auto mt-2 max-w-md px-1 text-center text-sm leading-6 text-black/48">
             How large is the desk? Nobody has finished counting. Famous names, filed names, and the ones that arrive tomorrow.
           </p>
 
-          <div className="mx-auto mt-6 w-full max-w-2xl border border-black/25 bg-[#f6f3ec]/92">
-            <form action="/directory" method="get" className="flex">
+          <div className="mx-auto mt-5 w-full max-w-2xl border border-black/25 bg-[#f6f3ec]/92 sm:mt-6">
+            <form action="/directory" method="get" className="flex min-h-[3.25rem]">
               <label className="block min-w-0 flex-1">
                 <span className="sr-only">Search the encyclopedia</span>
                 <input
                   name="q"
                   placeholder="Search a name"
-                  className="w-full bg-transparent px-4 py-3.5 text-lg outline-none"
+                  className="w-full bg-transparent px-3 py-3 text-base outline-none sm:px-4 sm:py-3.5 sm:text-lg"
                   autoComplete="off"
                 />
               </label>
-              <button type="submit" className="bg-black px-6 font-ui text-[11px] uppercase tracking-[0.2em] text-[#f6f3ec]">
+              <button type="submit" className="shrink-0 bg-black px-4 font-ui text-[10px] uppercase tracking-[0.18em] text-[#f6f3ec] sm:px-6 sm:text-[11px] sm:tracking-[0.2em]">
                 Search
               </button>
             </form>

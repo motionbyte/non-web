@@ -15,6 +15,17 @@ body {
   color: var(--color-ink);
 }
 
+@media (max-width: 767px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  .names-field-root {
+    display: none !important;
+  }
+}
+
 body {
   font-family: var(--font-body), Georgia, serif;
 }

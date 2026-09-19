@@ -39,9 +39,9 @@ export default async function ModerationPage({ searchParams }: { searchParams: P
   if (!me) redirect("/sign-in?next=/moderation");
   if (!isMod(me.user)) {
     return (
-      <div className="mx-auto max-w-2xl px-6 py-16">
+      <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-16">
         <p className="kicker text-black/50">The desk</p>
-        <h1 className="mt-4 font-display text-6xl">Moderators only.</h1>
+        <h1 className="mt-4 font-display text-4xl sm:text-6xl">Moderators only.</h1>
         <p className="mt-4 text-lg text-black/65">Community moderators are invited, like Wikipedia admins. File, talk, and flag from your desk.</p>
         <Link href="/desk" className="mt-8 inline-block underline underline-offset-4">
           Back to your desk
@@ -53,9 +53,9 @@ export default async function ModerationPage({ searchParams }: { searchParams: P
   const queue = (await apiGet<Queue>("/v1/moderation/queue")) || { filings: [], flags: [], pendingEdits: [], recent: [], talk: [] };
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-16">
+    <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
       <p className="kicker text-black/50">Community</p>
-      <h1 className="mt-4 font-display text-6xl">Moderation.</h1>
+      <h1 className="mt-4 font-display text-4xl sm:text-6xl">Moderation.</h1>
       <p className="mt-3 text-lg text-black/65">
         Recent filings, flags, and talk. Verified is a check. Protect locks a page. Revert undoes the last edit.
       </p>

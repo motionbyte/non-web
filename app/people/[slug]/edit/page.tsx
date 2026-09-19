@@ -20,9 +20,9 @@ export default async function EditPersonPage({ params }: { params: Promise<{ slu
   if (!record) notFound();
   if (record.protected) {
     return (
-      <div className="mx-auto max-w-2xl px-6 py-16">
+      <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-16">
         <p className="kicker text-black/50">Locked</p>
-        <h1 className="mt-4 font-display text-6xl">{record.name}.</h1>
+        <h1 className="mt-4 font-display text-4xl sm:text-6xl">{record.name}.</h1>
         <p className="mt-4 text-lg text-black/65">This page is locked. Ask a moderator on Talk.</p>
         <p className="mt-8 text-sm">
           <Link href={`/people/${record.slug}`} className="underline underline-offset-4">
@@ -34,9 +34,9 @@ export default async function EditPersonPage({ params }: { params: Promise<{ slu
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-6 py-16">
+    <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-16">
       <p className="kicker text-black/50">Edit</p>
-      <h1 className="mt-4 font-display text-6xl">{record.name}.</h1>
+      <h1 className="mt-4 font-display text-4xl sm:text-6xl">{record.name}.</h1>
       <p className="mt-3 text-lg text-black/65">
         Pages belong to the encyclopedia. Add a short summary of what you changed.{" "}
         <Link href={`/people/${record.slug}`} className="underline underline-offset-4">

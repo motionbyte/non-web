@@ -16,9 +16,9 @@ export default async function SecurityPage() {
   if (!me) redirect("/sign-in?next=/settings/security");
 
   return (
-    <div className="mx-auto max-w-2xl px-6 py-16">
+    <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-16">
       <p className="kicker text-black/50">Account</p>
-      <h1 className="mt-4 font-display text-6xl">Settings.</h1>
+      <h1 className="mt-4 font-display text-4xl sm:text-6xl">Settings.</h1>
       <p className="mt-3 text-lg text-black/65">
         Password, sessions, and deletion. Encyclopedia pages stay if you leave.{" "}
         <Link href="/desk" className="underline underline-offset-4">

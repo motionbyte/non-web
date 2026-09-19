@@ -8,9 +8,9 @@ export default async function CategoriesPage() {
   const { records, featured } = await fetchDirectory();
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-16">
+    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
       <p className="kicker text-black/50">The field</p>
-      <h1 className="mt-4 font-display text-6xl">Categories</h1>
+      <h1 className="mt-4 font-display text-4xl sm:text-6xl">Categories</h1>
       <p className="mt-3 max-w-xl text-lg text-black/65">Lists by field. Organic order. Sponsored names stay labeled.</p>
       <ol className="mt-12 divide-y divide-black/10 border-y border-black/10">
         {categories.map((item) => {
@@ -18,9 +18,9 @@ export default async function CategoriesPage() {
           const boosted = featured.filter((person) => person.field === item.slug);
           return (
             <li key={item.slug} id={item.slug} className="scroll-mt-24 py-8">
-              <div className="flex items-baseline justify-between gap-6">
+              <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2">
                 <span className="kicker text-black/35">{item.n}</span>
-                <h2 className="flex-1 font-display text-4xl">{item.name}</h2>
+                <h2 className="min-w-0 flex-1 font-display text-3xl sm:text-4xl">{item.name}</h2>
                 <Link href={`/directory?field=${item.slug}`} className="kicker text-black/50">
                   View →
                 </Link>

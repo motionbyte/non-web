@@ -14,7 +14,7 @@ export async function SiteHeader() {
   const moderator = isMod(me?.user);
 
   return (
-    <header className="fixed inset-x-0 bottom-0 z-40 border-t border-black/10 bg-[#f6f3ec]">
+    <header className="fixed inset-x-0 bottom-0 z-40 border-t border-black/10 bg-[#f6f3ec] pb-[max(0.75rem,env(safe-area-inset-bottom))]">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
         <Link href="/" className="min-w-0 shrink">
           <p className="font-display text-[1.35rem] leading-none tracking-tight sm:text-[1.65rem]">Names of Note</p>

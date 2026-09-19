@@ -2,9 +2,9 @@ import Link from "next/link";
 
 export default function AboutPage() {
   return (
-    <article className="mx-auto max-w-3xl px-6 py-16">
+    <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
       <p className="kicker text-black/50">Our mission</p>
-      <h1 className="mt-4 font-display text-6xl leading-[0.95]">To recognize what truly matters.</h1>
+      <h1 className="mt-4 font-display text-4xl sm:text-6xl leading-[0.95]">To recognize what truly matters.</h1>
       <p className="mt-8 text-xl leading-9 text-black/70">
         Names of Note is a free encyclopedia of people worth knowing — filed, labeled, and searchable. We do not sell ranking. We do not sell a verified mark. We sell a labeled Sponsored slot for people who want to be found faster.
       </p>

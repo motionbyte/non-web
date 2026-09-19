@@ -2,9 +2,9 @@ import Link from "next/link";
 
 export default function PersonNotFound() {
   return (
-    <div className="mx-auto max-w-2xl px-6 py-16">
+    <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-16">
       <p className="kicker text-black/50">Missing</p>
-      <h1 className="mt-4 font-display text-6xl">This name is not filed.</h1>
+      <h1 className="mt-4 font-display text-4xl sm:text-6xl">This name is not filed.</h1>
       <p className="mt-4 text-lg text-black/65">No encyclopedia page matches that address. Search similar names, or file it.</p>
       <form action="/directory" method="get" className="mt-8 flex flex-col gap-3 sm:flex-row">
         <label className="block flex-1 text-sm">

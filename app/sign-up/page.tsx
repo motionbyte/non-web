@@ -12,9 +12,9 @@ export default async function SignUpPage({ searchParams }: { searchParams: Promi
   if (me) redirect(dest);
 
   return (
-    <div className="mx-auto max-w-md px-6 py-16">
+    <div className="mx-auto max-w-md px-4 py-10 sm:px-6 sm:py-16">
       <p className="kicker text-black/50">Account</p>
-      <h1 className="mt-4 font-display text-6xl">Sign up.</h1>
+      <h1 className="mt-4 font-display text-4xl sm:text-6xl">Sign up.</h1>
       <p className="mt-3 text-lg text-black/65">A free account to file a page, talk, and flag. Ranking is not for sale.</p>
       <div className="mt-8">
         <SignUpForm next={dest} />

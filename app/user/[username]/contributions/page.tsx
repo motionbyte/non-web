@@ -19,9 +19,9 @@ export default async function ContributionsPage({ params }: { params: Promise<{ 
   const items = data?.contributions || [];
 
   return (
-    <div className="mx-auto max-w-2xl px-6 py-16">
+    <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-16">
       <p className="kicker text-black/50">Contributions</p>
-      <h1 className="mt-4 font-display text-6xl">{profile.profile.name}.</h1>
+      <h1 className="mt-4 font-display text-4xl sm:text-6xl">{profile.profile.name}.</h1>
       <p className="mt-3 text-lg text-black/65">
         <Link href={`/user/${username}`} className="underline underline-offset-4">
           Profile

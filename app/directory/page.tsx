@@ -15,9 +15,9 @@ export default async function DirectoryPage({
   const activeField = fieldLabel(field);
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-16">
+    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
       <p className="kicker text-black/50">The record</p>
-      <h1 className="mt-4 font-display text-6xl">Directory</h1>
+      <h1 className="mt-4 font-display text-4xl sm:text-6xl">Directory</h1>
       <p className="mt-3 max-w-xl text-lg text-black/65">
         A free encyclopedia of people worth knowing. Ranking is organic. Sponsored slots are labeled.
       </p>
@@ -81,8 +81,8 @@ export default async function DirectoryPage({
 
 function PersonRow({ person, sponsored }: { person: RecordItem; sponsored?: boolean }) {
   return (
-    <Link href={`/people/${person.slug}`} className="flex flex-col gap-1 py-6 sm:flex-row sm:items-baseline sm:justify-between">
-      <span className="font-display text-3xl">{person.name}</span>
+    <Link href={`/people/${person.slug}`} className="flex flex-col gap-1 py-5 sm:flex-row sm:items-baseline sm:justify-between sm:py-6">
+      <span className="font-display text-[1.85rem] leading-none sm:text-3xl">{person.name}</span>
       <span className="text-black/55">
         {sponsored ? "Sponsored · " : person.lane === "editorial" ? `${laneLabel(person.lane)} · ` : ""}
         {person.headline}

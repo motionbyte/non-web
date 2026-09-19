@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const ROWS = 48;
 const READ = "h1,h2,h3,h4,p,a,button,label,input,textarea,span,summary";
 const RAD = 224;
 const PAD = 18;
+const DESKTOP = "(min-width: 768px) and (hover: hover) and (pointer: fine)";
 
 function lineFor(names: string[], row: number) {
   const start = (row * 5) % names.length;
@@ -28,7 +29,21 @@ function boxesOf(node: Element) {
   return [node.getBoundingClientRect()];
 }
 
-export function NamesField({ names }: { names: string[] }) {
+function useDesktopPointer() {
+  const [on, setOn] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia(DESKTOP);
+    const sync = () => setOn(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  return on;
+}
+
+function NamesFieldCanvas({ names }: { names: string[] }) {
   const fieldRef = useRef<HTMLDivElement>(null);
   const maskRef = useRef<SVGMaskElement>(null);
   const circleRef = useRef<SVGCircleElement>(null);
@@ -95,8 +110,8 @@ export function NamesField({ names }: { names: string[] }) {
   }, []);
 
   return (
-    <>
-      <svg className="pointer-events-none absolute h-0 w-0" aria-hidden>
+    <div className="names-field-root" aria-hidden>
+      <svg className="pointer-events-none absolute h-0 w-0">
         <defs>
           <mask ref={maskRef} id="names-spot-mask" maskUnits="userSpaceOnUse" x="0" y="0">
             <rect ref={bgRef} id="names-spot-bg" x="0" y="0" fill="black" />
@@ -105,7 +120,7 @@ export function NamesField({ names }: { names: string[] }) {
           </mask>
         </defs>
       </svg>
-      <div ref={fieldRef} className="names-field pointer-events-none fixed inset-0 z-[15] overflow-hidden mix-blend-multiply" aria-hidden>
+      <div ref={fieldRef} className="names-field pointer-events-none fixed inset-0 z-[15] overflow-hidden mix-blend-multiply">
         {Array.from({ length: ROWS }, (_, row) => (
           <p
             key={row}
@@ -116,6 +131,12 @@ export function NamesField({ names }: { names: string[] }) {
           </p>
         ))}
       </div>
-    </>
+    </div>
   );
+}
+
+export function NamesField({ names }: { names: string[] }) {
+  const desktop = useDesktopPointer();
+  if (!desktop) return null;
+  return <NamesFieldCanvas names={names} />;
 }

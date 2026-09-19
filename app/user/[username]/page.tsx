@@ -34,9 +34,9 @@ export default async function UserProfilePage({ params }: { params: Promise<{ us
   const { profile } = data;
 
   return (
-    <div className="mx-auto max-w-2xl px-6 py-16">
+    <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-16">
       <p className="kicker text-black/50">{profile.role}</p>
-      <h1 className="mt-4 font-display text-6xl">{profile.name}.</h1>
+      <h1 className="mt-4 font-display text-4xl sm:text-6xl">{profile.name}.</h1>
       <p className="mt-3 text-lg text-black/65">@{profile.username}</p>
       {profile.bio ? <p className="mt-4 text-black/70">{profile.bio}</p> : null}
       <p className="mt-6 text-sm text-black/55">
